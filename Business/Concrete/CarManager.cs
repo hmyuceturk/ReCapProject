@@ -14,6 +14,13 @@ namespace Business.Concrete
         {
             _iCarDal = iCarDal;
         }
+
+        public void Add(Car car)
+        {
+            if(Validate(car))
+            _iCarDal.Add(car);
+        }
+
         public List<Car> GetAll()
         {
             return _iCarDal.GetAll();            
@@ -27,6 +34,16 @@ namespace Business.Concrete
         public List<Car> GetCarsByColorId(int colorId)
         {
             return _iCarDal.GetAll(c => c.ColorId == colorId);
+        }
+
+        public bool Validate(Car car)
+        {
+            bool deger = true;
+            if (car.Description.Length < 2) 
+            { return false; }
+            else if (car.DailyPrice <=0)
+            { return false; }
+            return true;
         }
     }
 }
